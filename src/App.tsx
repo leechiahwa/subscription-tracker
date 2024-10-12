@@ -5,8 +5,10 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Paper,
   TextField,
 } from "@mui/material";
+import moment from "moment";
 import "./App.css";
 
 interface SubscriptionData {
@@ -73,6 +75,14 @@ const App: React.FC = () => {
     console.log("Edit");
   };
 
+  // Format date
+  const formatDate = (dateString: string) => {
+    return moment(dateString, "DD-MM-YYYY").format("DD/MM/YYYY");
+  };
+
+  // Check date is filled
+  const isFormValid = newSubscription.billingDate.trim() !== "";
+
   return (
     <>
       <h1>Your Subscription Tracker</h1>
@@ -111,8 +121,11 @@ const App: React.FC = () => {
             label="Billing Date"
             type="date"
             fullWidth
-            InputLabelProps={{
-              shrink: true,
+            required
+            slotProps={{
+              inputLabel: {
+                shrink: true,
+              },
             }}
             value={newSubscription.billingDate}
             onChange={handleChange}
@@ -120,34 +133,41 @@ const App: React.FC = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleAddSubscription}>Add</Button>
+          <Button
+            type="submit"
+            disabled={!isFormValid}
+            onClick={handleAddSubscription}
+          >
+            Add
+          </Button>
         </DialogActions>
       </Dialog>
-      <div>
+      <Paper sx={{ backgroundColor: 'pink', margin: 2}}>
         {subscriptions.map((subscription, index) => (
-          <div key={index}>
+          <div className="subscription" key={index}>
             <h3>{subscription.name}</h3>
             <p>Cost: RM {subscription.cost}</p>
-            <p>Billing Date: {subscription.billingDate}</p>
+            <p>Next Billing Date: {formatDate(subscription.billingDate)}</p>
             {/* Edit Button */}
             <Button
-              variant="outlined"
-              color="primary"
+              variant="contained"
+              color="secondary"
+              style={{margin: 2}}
               onClick={handleEditSubscription}
             >
               Edit
             </Button>
             {/* Remove Button */}
             <Button
-              variant="outlined"
-              color="primary"
+              variant="contained"
+              color="secondary"
               onClick={() => handleRemoveSubscription(index)}
             >
               Remove
             </Button>
           </div>
         ))}
-      </div>
+      </Paper>
     </>
   );
 };
