@@ -18,7 +18,6 @@ interface SubscriptionData {
 }
 
 const App: React.FC = () => {
-  const [count, setCount] = useState(0);
   const [subscriptions, setSubscriptions] = useState<SubscriptionData[]>(() => {
     const items = localStorage.getItem("items");
     return items ? JSON.parse(items) : [];
