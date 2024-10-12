@@ -82,6 +82,8 @@ const App: React.FC = () => {
   // Check date is filled
   const isFormValid = newSubscription.billingDate.trim() !== "";
 
+  // Stefani: Test commit
+
   return (
     <>
       <h1>Your Subscription Tracker</h1>
