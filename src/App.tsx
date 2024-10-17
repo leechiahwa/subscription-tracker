@@ -26,7 +26,7 @@ const App: React.FC = () => {
   const [newSubscription, setNewSubscription] = useState<SubscriptionData>({
     name: "",
     cost: "",
-    billingDate: "",
+    billingDate: moment().format('YYYY-MM-DD') // Today's date as default value,
   });
 
   // Function to handle opening the dialog
@@ -76,13 +76,11 @@ const App: React.FC = () => {
 
   // Format date
   const formatDate = (dateString: string) => {
-    return moment(dateString, "DD-MM-YYYY").format("DD/MM/YYYY");
+    return moment(dateString, "YYYY-MM-DD").format("DD/MM/YYYY");
   };
 
   // Check date is filled
   const isFormValid = newSubscription.billingDate.trim() !== "";
-
-  // Stefani: Test commit
 
   return (
     <>
