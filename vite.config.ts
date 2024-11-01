@@ -5,7 +5,7 @@ import tailwindcss from 'tailwindcss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/",
+  base: "/subscription-tracker/",
   plugins: [react()],
    css: {
     postcss: {
